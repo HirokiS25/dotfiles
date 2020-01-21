@@ -17,11 +17,14 @@ if dein#load_state('~/.cache/dein')
 
 	" plugins loading from .toml
 	let g:rc_dir = expand('~/.config/nvim/rc')
+	" let g:rc_dir = expand('~/dotfiles/neovim/rc')
 	let s:toml = g:rc_dir . '/dein.toml'
 	let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+	let s:frontend = g:rc_dir . '/frontend.toml'
 
 	call dein#load_toml(s:toml, {'lazy': 0})
 	call dein#load_toml(s:lazy_toml, {'lazy': 1})
+	call dein#load_toml(s:frontend, {'lazy': 0})
 
 	call dein#end()
 	call dein#save_state()
@@ -34,62 +37,40 @@ endif
 filetype plugin indent on
 syntax enable
 
-" autocmd bufenter * Defx -split=vertical -winwidth=10 -direction=topleft
-" augroup vimrc_loading
-"     autocmd!
-"     autocmd BufNewFile * put = 'vimvim'
-" augroup END
 
-" ---------------------------
-" settings
-" ---------------------------
+" ========================================
+" SETTING
+" ========================================
 set encoding=UTF-8
 set guifont=DroidSansMono\ Nerd\ Font\ 11
 " repalce <Leader>
 let maplocalleader = "\<Space>"
 let mapleader = "\<Space>"
 
-" let g:netrw_banner = 0
-" let g:netrw_liststyle = 3
-" let g:netrw_browse_split = 4
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 25
-" augroup ProjectDrawer
-"   autocmd!
-"   autocmd VimEnter * :Vexplore
-" augroup END
-" ファイルツリーの表示形式、1にするとls -laのような表示になります
-" 3でツリー表示にする
-" let g:netrw_liststyle=3
-" ヘッダを非表示にする
-" let g:netrw_banner=0
-" サイズを(K,M,G)で表示する
-" let g:netrw_sizestyle="H"
-" 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-" let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
-" プレビューウィンドウを垂直分割で表示する
-" let g:netrw_preview=1
-" 'v'でファイルを開くときは右側に開く。(デフォルトが左側なので入れ替え)
-" let g:netrw_altv = 1
-" 'o'でファイルを開くときは下側に開く。(デフォルトが上側なので入れ替え)
-" let g:netrw_alto = 1
-" 分割で開いたときに85%のサイズで開く
-" let g:netrw_winsize = 85
-
-" display setting
+" ------------------
+" DISPLAY
+" ------------------
 set title
 set list
 set number
 set tabstop=4
 set shiftwidth=4
 set showbreak=↪
+set termguicolors
+set pumblend=10
+colorscheme iceberg
 
 set cursorline
-hi clear CursorLine
-hi LineNr ctermbg=0 ctermfg=1
-hi CursorLineNr ctermbg=0 ctermfg=2
+" hi clear CursorLine
+" hi LineNr ctermbg=0 ctermfg=1
+" hi CursorLineNr ctermbg=234 ctermfg=2
 
-" search
+" カーソルの左右移動で行末から次の行の行頭への移動が可能になる
+set whichwrap=b,s,h,l,<,>,[,],~
+
+" ------------------
+" SEARCH
+" ------------------
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 " 小文字の検索でも大文字も見つかるようにする
 set ignorecase
@@ -97,12 +78,14 @@ set ignorecase
 set smartcase
 " インクリメンタルサーチを行う
 set incsearch
+" 検索結果をハイライト
+set hlsearch
 
 set matchpairs& matchpairs+=<:>
-" set termguicolors
-" colorscheme iceberg
 
-" clipboard
+" ------------------
+" CLIPBOARD
+" ------------------
 " クリップボードをデフォルトのレジスタとして指定。後にYankRingを使うので
 " 'unnamedplus'が存在しているかどうかで設定を分ける必要がある
 if has('unnamedplus')
@@ -113,17 +96,21 @@ else
     set clipboard& clipboard+=unnamed
 endif
 
-" buffer setting
+" ------------------
+" BUFFER
+" ------------------
 set hidden
 
-" swap file
+" ------------------
+" BACKUP
+" ------------------
 " *.swpの出力を変更
 set directory=~/.config/nvim/swaps
 
 
-" ---------------------------
-" # key-mapping
-" ---------------------------
+" ========================================
+" # KEY-MAPPING
+" ========================================
 
 " https://postd.cc/how-to-boost-your-vim-productivity/
 nnoremap <Leader>w :w<CR>
@@ -138,8 +125,8 @@ nmap <Leader><Leader> V
 nnoremap <ESC><ESC> :noh<CR>
 
 " bufdo tab split
-" nnoremap <silent> <C-h> :bprev<CR>
-" nnoremap <silent> <C-l> :bnext<CR>
+" nnoremap <silent><C-p> :bprev<CR>
+" nnoremap <silent><C-n> :bnext<CR>
 
 " Ctrl + hjkl でウィンドウ間を移動
 nnoremap <C-h> <C-w>h
@@ -147,9 +134,11 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" 折り返し部分も移動する
 noremap j gj
 noremap k gk
 
+" インサートモードのときjjでエスケープする
 inoremap <silent> jj <ESC>
 
 " 検索語が画面の真ん中に来るようにする
@@ -159,78 +148,4 @@ nmap * *zz
 nmap # #zz 
 nmap g* g*zz 
 nmap g# g#zz
-
-" ---------------------------
-" # TODO
-" ---------------------------
-
-" " 単語を囲む
-" nnoremap <Leader>" ciw""<Esc>P
-" nnoremap <Leader>' ciw''<Esc>P
-" nnoremap <Leader>` ciw``<Esc>P
-" nnoremap <Leader>( ciw()<Esc>P
-" nnoremap <Leader>{ ciw{}<Esc>P
-" nnoremap <Leader>[ ciw[]<Esc>P
-
-
-
-" 背景の透過
-augroup TransparentBG
-	autocmd!
-	autocmd Colorscheme * highlight Normal ctermbg=none
-	autocmd Colorscheme * highlight NonText ctermbg=none
-	autocmd Colorscheme * highlight LineNr ctermbg=none
-	autocmd Colorscheme * highlight Folded ctermbg=none
-	autocmd Colorscheme * highlight EndOfBuffer ctermbg=none
-augroup END
-
-
-" Quickfix
-
-
-
-" Plugin key-mappings.
-" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-
-
-"set snippet file dir
-let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/,~/.vim/snippets'
-
-
-
-
-" treeを表示する
-" let NERDTreeShowHidden = 1
-" nnoremap <silent><C-e> :NERDTreeFocusToggle<CR>
-" let g:nerdtree_tabs_open_on_console_startup = 1
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-
-
-
-"" quickrun
-" nnoremap <Leader>go :QuickRun<CR>
-" let g:quickrun_config={'*': {'split': ''}}
-
-"" syntastic
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_error_symbol='✗'
-" let g:syntastic_warning_symbol='⚠'
-" let g:syntastic_style_error_symbol = '✗'
-" let g:syntastic_style_warning_symbol = '⚠'
-" let g:syntastic_auto_loc_list=1
-" let g:syntastic_aggregate_errors = 1
-
-
 

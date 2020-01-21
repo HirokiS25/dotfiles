@@ -1,0 +1,257 @@
+
+# ---------------------
+# PYTHON
+# ---------------------
+[[plugins]]
+repo = 'hynek/vim-python-pep8-indent'
+on_ft = ['python','py']
+hook_add = '''
+"" jedi-vim
+let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#goto_assignments_command = "<leader>assign"
+let g:jedi#goto_definitions_command = "<leader>def"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>usage"
+let g:jedi#rename_command = "<leader>rename"
+let g:jedi#show_call_signatures = "0"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#force_py_version = 3
+autocmd FileType python setlocal completeopt-=preview
+'''
+
+[[plugins]]
+repo = "davidhalter/jedi-vim"
+on_ft = ['python', 'py']
+
+[[plugins]]
+repo = 'raimon49/requirements.txt.vim'
+on_ft = 'requirements'
+
+[[plugins]]
+repo = 'psf/black'
+on_ft = ['python', 'py']
+
+
+
+# ---------------------
+# MARKDOWN
+# ---------------------
+[[plugins]]
+# syntax highlight, auto-indent
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown', 'mkd']
+
+[[plugins]]
+# preview
+# 【:MarkdownPreview】preview on
+# 【:MarkdownPreviewStop】preview off
+repo = 'iamcco/markdown-preview.nvim'
+on_ft = ['markdown', 'mkd']
+build = 'cd app & yarn install'
+
+
+[[plugins]]
+repo = 'joker1007/vim-markdown-quote-syntax'
+on_ft = ['markdown', 'mkd']
+
+[[plugins]]
+repo = 'dhruvasagar/vim-table-mode'
+on_ft = ['markdown', 'mkd']
+
+
+
+# ---------------------
+# LATEX
+# ---------------------
+[[plugins]]
+repo = 'lervag/vimtex'
+on_ft = ['tex']
+hook_add = '''
+" latex 
+let g:latex_latexmk_options = '-pdf'
+let g:vimtex_view_general_viewer = '/usr/bin/evince'
+let g:vimtex_view_general_options = '@line @pdf @tex'
+let g:vimtex_compiler_latexmk = {
+	\ 'background': 1,
+	\ 'build_dir': '',
+	\ 'continuous': 1,
+	\ 'options': [
+	\    '-pdfdvi', 
+	\    '-verbose',
+	\    '-file-line-error',
+	\    '-synctex=1',
+	\    '-interaction=nonstopmode',
+	\],
+\}
+'''
+
+
+[[plugins]]
+repo = 'PietroPate/vim-tex-conceal'
+on_ft = ['tex']
+hook_add = '''
+set conceallevel=0
+let g:tex_conceal="adgmb"
+'''
+
+[[plugins]]
+repo = 'gauteh/vim-evince-synctex'
+of_ft = ['tex']
+
+# ------------------------------------
+# TOML
+# ------------------------------------
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+
+
+# ------------------------------------
+# HTML/CSS
+# ------------------------------------
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = [ 'html', "css" ]
+
+[[plugins]]
+repo = 'gorodinskiy/vim-coloresque'
+on_ft = [ 'html', "css" ]
+
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+on_ft = [ 'css', 'html' ]
+
+
+# ------------------------------------
+# JAVASCRIPT
+# ------------------------------------
+[[plugins]]
+repo = 'pangloss/vim-javascript'
+on_ft = ["javascript"]
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = ["javascript"]
+
+[[plugins]]
+repo = 'alvan/vim-closetag'
+on_ft = ['html', 'xhouml', 'javascript', 'typescript', 'javascript.jsx', 'typescript.tsx']
+hook_add = '''
+  let g:closetag_filenames='*.html'
+  let g:closetag_xhtml_filenames='*.jsx,*.tsx,*.vue'
+  let g:closetag_filetypes='html'
+  let g:closetag_xhtml_filetypes='jsx,tsx,javascript.jsx,typescript.tsx,vue'
+  let g:closetag_emptyTags_caseSensitive=1
+  let g:closetag_shortcut='>'
+'''
+
+
+
+# ------------------------------------
+# EXTRA
+# ------------------------------------
+[[plugins]]
+# コメントアウト
+# repo = 'tyru/caw.vim.git'
+repo = 'tpope/vim-commentary'
+on_path = '.*'
+hook_add = '''
+	" comment
+	" Ctrl + slash (underscore replace slash)
+	nmap <C-_> gcc
+	vmap <C-_> gcc<ESC>
+	" 行頭コメント
+	" nmap <C-,> <Plug>(caw:zeropos:toggle)
+	" vmap <C-,> <Plug>(caw:zeropos:toggle)
+'''
+# [[plugins]]
+# repo = 'rhysd/clever-f.vim'
+# on_path = '.*'
+
+# [[plugins]]
+# repo = 'terryma/vim-multiple-cursors'
+# on_path = '.*'
+# hook_post_source = '''
+# 	let g:multi_cursor_use_default_mapping=1
+# 	let g:multi_cursor_start_word_key      = '<C-m>'
+# 	let g:multi_cursor_select_all_word_key = '<A-n>'
+# 	let g:multi_cursor_start_key           = 'g<C-m>'
+# 	let g:multi_cursor_select_all_key      = 'g<A-m>'
+# 	let g:multi_cursor_next_key            = '<C-m>'
+# "	vmap <C-_> <C-m> <Plug>(caw:zeropos:toggle)
+# '''
+
+
+[[plugins]]
+# 文字列を検索orURLを開く
+repo = 'tyru/open-browser.vim'
+on_path = '.*'
+hook_add = '''
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+'''
+
+[[plugins]]
+# テキスト整形
+# 【ga[**=]】ga入力後，**=で整形する
+repo     = 'junegunn/vim-easy-align'
+on_path  = '.*'
+hook_add = '''
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+'''
+
+
+
+# -------------------------
+# PARENTHESES
+# -------------------------
+# 選択範囲をくくる
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'machakann/vim-sandwich'
+on_path = '.*'
+# 【saiw(】fooが(foo)になる
+# 【sdb】(foo)がfooになる
+# 【srb"】(foo)が"foo"になる
+
+[[plugins]]
+repo = 'luochen1990/rainbow'
+on_path = '.*'
+hook_add = '''
+let g:rainbow_active = 1
+'''
+
+[[plugins]]
+# auto-close paran.
+repo = 'cohama/lexima.vim'
+# on_ft = ['tex', 'markdown']
+on_path = '.*'
+hook_post_source = '''
+call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'markdown'})
+call lexima#add_rule({'char': '$', 'at': '\%#\$', 'leave': 1, 'filetype': 'markdown'})
+call lexima#add_rule({'char': '<BS>', 'at': '\$\%#\$', 'delete': 1, 'filetype': 'markdown'})
+call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'tex'})
+call lexima#add_rule({'char': '$', 'at': '\%#\$', 'leave': 1, 'filetype': 'tex'})
+call lexima#add_rule({'char': '<BS>', 'at': '\$\%#\$', 'delete': 1, 'filetype': 'tex'})
+'''
+
+
+
+# -------------------------
+# CHEATING
+# -------------------------
+[[plugins]]
+repo = 'reireias/vim-cheatsheet'
+on_path = '.*'
+hook_add = '''
+let g:cheatsheet#cheat_file = '~/.config/nvim/cheatsheet/cheat.md'
+nnoremap <Leader>help :Cheat<CR>
+'''
