@@ -77,10 +77,8 @@ repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
 repo     = 'Shougo/defx.nvim'
-# on_cmd   = 'Defx'
-# on_path = '.*'
 depends  = ['defx-icons', 'defx-git']
-hook_source = '''
+hook_add = '''
 " source /home/usr/dotfiles/neovim/rc/lazy_hook/defx.nvim
 let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1

@@ -16,15 +16,15 @@ if dein#load_state('~/.cache/dein')
 	endif
 
 	" plugins loading from .toml
-	let g:rc_dir = expand('~/.config/nvim/rc')
-	" let g:rc_dir = expand('~/dotfiles/neovim/rc')
+	" let g:rc_dir = expand('~/.config/nvim/rc')
+	let g:rc_dir = expand('~/dotfiles/neovim/rc')
 	let s:toml = g:rc_dir . '/dein.toml'
 	let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
-	let s:frontend = g:rc_dir . '/frontend.toml'
+	let s:layout = g:rc_dir . '/layout.toml'
 
 	call dein#load_toml(s:toml, {'lazy': 0})
 	call dein#load_toml(s:lazy_toml, {'lazy': 1})
-	call dein#load_toml(s:frontend, {'lazy': 0})
+	call dein#load_toml(s:layout, {'lazy': 0})
 
 	call dein#end()
 	call dein#save_state()
@@ -46,6 +46,8 @@ set guifont=DroidSansMono\ Nerd\ Font\ 11
 " repalce <Leader>
 let maplocalleader = "\<Space>"
 let mapleader = "\<Space>"
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
 
 " ------------------
 " DISPLAY

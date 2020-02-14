@@ -16,40 +16,65 @@ autoload -Uz _zinit
 # ----------------------------
 # user setting
 # ----------------------------
-autoload -Uz colors ; colors
+: "Utility" && {
+	autoload -Uz colors ; colors
+	autoload -U compinit && compinit # 補完機能の強化
+	setopt correct # 入力しているコマンド名が間違っている場合にもしかして：を出す。
+	setopt no_beep
+	setopt no_tify # バックグラウンドジョブが終了したらすぐに知らせる。
+	unsetopt auto_menu
+	setopt auto_pushd # cd -[tab]で過去のディレクトリにひとっ飛びできるようにする
+	setopt auto_cd
+	setopt interactive_comments
+}
+
 setopt extended_glob
-setopt auto_cd
-setopt no_beep
 setopt auto_param_slash
 setopt mark_dirs
 setopt no_clobber
 setopt list_types
-setopt auto_menu
 setopt auto_param_keys
-setopt complete_in_word
 setopt noautoremoveslash
 
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
-HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
+: "history" && {
+	HISTFILE=$HOME/.zsh_history
+	HISTSIZE=10000
+	SAVEHIST=10000
+	LISTMAX=1000
+	HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] "
+	setopt hist_ignore_dups # 直前と同じコマンドをヒストリに追加しない
+	setopt hist_ignore_all_dups # 重複するコマンドは古い法を削除する
+	setopt share_history # 異なるウィンドウでコマンドヒストリを共有する
+	setopt hist_no_store
+	setopt hist_reduce_blanks
+}
 
-LISTMAX=1000
 
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
-	/usr/sbin /usr/bin /sbin /bin
+: "completion" && {
+	zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+	zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+		/usr/sbin /usr/bin /sbin /bin
+	zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+	setopt complete_in_word
+}
+
 # done
 
-zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 export XDG_CONFIG_HOME=$HOME/.config
 source $HOME/dotfiles/zsh/.zinitrc
 
 # Alias
 alias ls='ls --color=auto'
-alias la='ls --la --color=auto'
-alias ll='ls --l --color=auto'
-alias vim='nvim'
+alias la='ls --all --color=auto'
+alias ll='ls -l --color=auto'
+alias vi='nvim'
+alias grep='grep --color'
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='trash-put'
+alias re='source $HOME/.zshrc'
+alias cl='clear'
 
 # Python
 export PYENV_ROOT=$HOME/.pyenv
