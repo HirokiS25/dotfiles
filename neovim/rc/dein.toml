@@ -8,7 +8,7 @@ rev = 'release'
 on_i = 1
 merged = '0'
 hook_add = '''
-source /home/usr/dotfiles/neovim/rc/lazy_hook/coc.vim
+source ~/dotfiles/neovim/rc/lazy_hook/coc.vim
 '''
 
 # --------------------------------
@@ -17,7 +17,7 @@ source /home/usr/dotfiles/neovim/rc/lazy_hook/coc.vim
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 hook_add = '''
-source /home/usr/dotfiles/neovim/rc/lazy_hook/quickrun.vim
+source ~/dotfiles/neovim/rc/lazy_hook/quickrun.vim
 '''
 
 
@@ -42,7 +42,7 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 hook_add = '''
-source /home/usr/dotfiles/neovim/rc/lazy_hook/denite.vim
+source ~/dotfiles/neovim/rc/lazy_hook/denite.vim
 '''
 
 [[plugins]]
@@ -52,16 +52,39 @@ hook_add = '''
 nnoremap <silent><C-o> :<C-u>Deol -split=floating<CR>
 " 【ESC】 ターミナルモードから抜ける
 tnoremap <ESC>   <C-\><C-n>
+
+let g:deol#shell_history_path = '~/.zsh_history'
+augroup transparent-windows
+	autocmd!
+	autocmd FileType deol set winblend=30
+augroup END
+
+hi NormalFloat guifg=#2e3440 guibg=#a3be8c
 '''
 
 [[plugins]]
 repo = 'kristijanhusak/defx-icons'
+hook_add = '''
+let g:defx_icons_enable_syntax_highlight = 1
+let g:defx_icons_column_length = 2
+let g:defx_icons_directory_icon = ''
+let g:defx_icons_mark_icon = '*'
+let g:defx_icons_copy_icon = ''
+let g:defx_icons_move_icon = ''
+let g:defx_icons_parent_icon = ''
+let g:defx_icons_default_icon = ''
+let g:defx_icons_directory_symlink_icon = ''
+" Options below are applicable only when using "tree" feature
+let g:defx_icons_root_opened_tree_icon = ''
+let g:defx_icons_nested_opened_tree_icon = ''
+let g:defx_icons_nested_closed_tree_icon = ''
+'''
 
 [[plugins]]
 repo ='kristijanhusak/defx-git'
 hook_add = '''
 call defx#custom#column('git', 'indicators', {
-  \ 'Modified'  : '✔',
+  \ 'Modified'  : '✔︎',
   \ 'Staged'    : '✚',
   \ 'Untracked' : '↶',
   \ 'Renamed'   : '⚐',
@@ -74,14 +97,25 @@ call defx#custom#column('git', 'indicators', {
 
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
+let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+" after a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+	call webdevicons#refresh()
+endif
+
+" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" if exists('g:loaded_webdevicons')
+" call webdevicons#refresh()
+" endif
+'''
 
 [[plugins]]
 repo     = 'Shougo/defx.nvim'
-depends  = ['defx-icons', 'defx-git']
+# depends  = ['defx-icons', 'defx-git']
 hook_add = '''
 " source /home/usr/dotfiles/neovim/rc/lazy_hook/defx.nvim
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
 
 call defx#custom#column('icon', {
       \ 'directory_icon': '▸',
@@ -111,13 +145,10 @@ nnoremap <silent><buffer><expr> > defx#do_action('resize',
 nnoremap <silent><buffer><expr> < defx#do_action('resize',
 	\ defx#get_context().winwidth - 10)
 
-call defx#custom#option('_', {
-   \ 'columns': 'indent:git:icons:filename',
-   \ 'show_ignored_files': 1,
-   \ })
-
-let g:defx_icons_enable_syntax_highlight = 1
-let g:defx_icons_column_length = 2
+""call defx#custom#option('_', {
+""   \ 'columns': 'indent:git:icons:filename:type',
+""   \ 'show_ignored_files': 1,
+""   \ })
 
 autocmd FileType defx call s:defx_my_settings()
     function! s:defx_my_settings() abort
@@ -196,21 +227,21 @@ endfunction
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-# [[plugins]]
-# repo = "airblade/vim-gitgutter"
-# hook_add = '''
-# " GitGutter styling to use · instead of +/-
-# let g:gitgutter_sign_added = '▌'
-# let g:gitgutter_sign_modified = '▌'
-# let g:gitgutter_sign_removed = '▌'
-# let g:gitgutter_sign_modified_removed = '∙'
-# nmap ]g :GitGutterNextHunk<CR>
-# nmap [g :GitGutterPrevHunk<CR>
-# augroup VimDiff
-#   autocmd!
-#   autocmd VimEnter,FilterWritePre * if &diff | GitGutterDisable | endif
-# augroup END
-# '''
+[[plugins]]
+repo = "airblade/vim-gitgutter"
+hook_add = '''
+" GitGutter styling to use · instead of +/-
+let g:gitgutter_sign_added = '▌'
+let g:gitgutter_sign_modified = '▌'
+let g:gitgutter_sign_removed = '▌'
+let g:gitgutter_sign_modified_removed = '∙'
+nmap ]g :GitGutterNextHunk<CR>
+nmap [g :GitGutterPrevHunk<CR>
+augroup VimDiff
+  autocmd!
+  autocmd VimEnter,FilterWritePre * if &diff | GitGutterDisable | endif
+augroup END
+'''
 
 
 
@@ -223,5 +254,4 @@ hook_add = '''
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 '''
-
 

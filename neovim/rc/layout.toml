@@ -1,8 +1,8 @@
-
 [[plugins]]
 repo     = 'vim-airline/vim-airline'
 hook_add = '''
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
 " タブの切り替え
 nmap <C-p> <Plug>AirlineSelectPrevTab
@@ -56,6 +56,15 @@ endfunction
 # COLORSCHEME
 # -------------------------
 [[plugins]]
+repo = 'danilo-augusto/vim-afterglow'
+hook_add =
+'''
+set termguicolors
+colorscheme afterglow
+set background=dark
+'''
+
+[[plugins]]
 repo = 'sainnhe/edge'
 hook_add = '''
 " important!!
@@ -85,8 +94,8 @@ repo = 'cocopon/iceberg.vim'
 [[plugins]] # カラースキーマ
 repo = 'w0ng/vim-hybrid'
 hook_add = '''
-  set background=dark
+  " set background=dark
   " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
   " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
-"  au MyAutoCmd VimEnter * nested colorscheme hybrid
+  "  au MyAutoCmd VimEnter * nested colorscheme hybrid
 '''

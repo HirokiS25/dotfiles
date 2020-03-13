@@ -61,20 +61,47 @@ setopt noautoremoveslash
 # done
 
 
+# platform check
+if [ "$(uname)" "==" 'Darwin' ]; then
+	OS='Mac'
+elif [ "$(uname)" "==" 'Linux' ]; then
+	OS='Linux'
+else
+	echo "Your platform ($(uname -a)) is not supported."
+	exit 1
+fi
+
 export XDG_CONFIG_HOME=$HOME/.config
 source $HOME/dotfiles/zsh/.zinitrc
 
 # Alias
-alias ls='ls --color=auto'
-alias la='ls --all --color=auto'
-alias ll='ls -l --color=auto'
+# if [ $OS "==" 'Mac' ]; then
+# 	alias ls='ls -G'
+# 	alias la='ls -laG'
+# 	alias ll='ls -lG'
+# elif [ $OS "==" 'Linux' ]; then
+# 	alias ls='ls --color=auto'
+# 	alias la='ls --all --color=auto'
+# 	alias ll='ls -l --color=auto'
+# else
+# 	echo "not supported without Mac and Linux"
+# fi
 alias vi='nvim'
-alias grep='grep --color'
+# alias grep='grep --color'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='trash-put'
 alias re='source $HOME/.zshrc'
 alias cl='clear'
+alias tmux='tmux -u'
+alias tkill='tmux kill-session'
+
+# Alternative to CLI
+alias ls='exa --group-directories-first'
+alias la='exa -aalh --git --time-style=iso --group-directories-first'
+alias ll='exa -lh --git --time-style=iso --group-directories-first'
+alias tree='exa -T --git-ignore'
+alias grep='rg'
 
 # Python
 export PYENV_ROOT=$HOME/.pyenv
@@ -91,3 +118,10 @@ export PATH="$PATH:$HOME/.cargo/bin"
 # Go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
+
+# Node.js > nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+export NODE_PATH=`npm root -g`
+
+# texlive
+export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH

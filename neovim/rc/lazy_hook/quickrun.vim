@@ -1,6 +1,5 @@
-
-"" key-mapping
-nnoremap <Space>run :QuickRun<CR>
+" qでquick-fixを閉じる
+au FileType qf nnoremap <silent><buffer>q :quit<CR>
 
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 
@@ -17,10 +16,3 @@ let g:quickrun_config._ = {
 \   'outputter/buffer/close_on_empty' : 1,
 \}
 
-"" quickrunでlatexmkする
-let g:quickrun_config = {
-\    'tex': {
-\        'command': 'latexmk',
-\        'exec': ['%c -gg -pdf %s', 'xdg-open %s:r.pdf']
-\    },
-\}

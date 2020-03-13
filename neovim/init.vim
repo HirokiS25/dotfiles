@@ -60,12 +60,14 @@ set shiftwidth=4
 set showbreak=↪
 set termguicolors
 set pumblend=10
-colorscheme iceberg
+set matchtime=3
+set matchpairs& matchpairs+=<:>
+" colorscheme aftergrow
 
-set cursorline
+" set cursorline
 " hi clear CursorLine
-" hi LineNr ctermbg=0 ctermfg=1
-" hi CursorLineNr ctermbg=234 ctermfg=2
+hi LineNr ctermbg=0 ctermfg=1
+hi CursorLineNr ctermbg=234 ctermfg=2
 
 " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
 set whichwrap=b,s,h,l,<,>,[,],~
@@ -83,7 +85,6 @@ set incsearch
 " 検索結果をハイライト
 set hlsearch
 
-set matchpairs& matchpairs+=<:>
 
 " ------------------
 " CLIPBOARD
@@ -141,7 +142,8 @@ noremap j gj
 noremap k gk
 
 " インサートモードのときjjでエスケープする
-inoremap <silent> jj <ESC>
+" Ctrl-[
+" inoremap <silent> jj <ESC>
 
 " 検索語が画面の真ん中に来るようにする
 nmap n nzz 
@@ -151,3 +153,36 @@ nmap # #zz
 nmap g* g*zz 
 nmap g# g#zz
 
+
+" ========================================
+" :terminal
+" ========================================
+if has('nvim')
+	tnoremap <C-q> <C-\><C-n>:q<CR>
+	tnoremap <ESC> <C-\><C-n>
+	tnoremap <C-n> <C-\>:bn<CR>
+	tnoremap <C-p> <C-\>:bp<CR>
+endif
+
+" hack colorscheme for :terminal
+" https://qiita.com/taroc/items/b774425e6f4ba8b7b10a
+if has('macunix')
+	let g:terminal_color_0  = "#1c1c1c" "black
+	let g:terminal_color_1  = "#bc5653" "red
+	let g:terminal_color_2  = "#909d63" "green
+	let g:terminal_color_3  = "#ebc17a" "yellow
+	let g:terminal_color_4  = "#7eaac7" "blue
+	let g:terminal_color_5  = "#aa6292" "magenta
+	let g:terminal_color_6  = "#86d3ce" "cyan
+	let g:terminal_color_7  = "#cacaca" "white
+	let g:terminal_color_8  = "#636363" "bright black
+	let g:terminal_color_9  = "#bc5653" "bright red
+	let g:terminal_color_10 = "#909d63" "bright green
+	let g:terminal_color_11 = "#ebc17a" "bright yellow
+	let g:terminal_color_12 = "#7eaac7" "bright blue
+	let g:terminal_color_13 = "#aa6292" "bright magenta
+	let g:terminal_color_14 = "#86d3ce" "bright cyan
+	let g:terminal_color_15 = "#f7f7f7" "bright white
+	let g:terminal_color_background="#2c2c2c" "background
+	let g:terminal_color_foreground="#d9d9d9" "foreground
+endif
