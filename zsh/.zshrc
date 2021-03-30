@@ -74,6 +74,9 @@ fi
 export XDG_CONFIG_HOME=$HOME/.config
 source $HOME/dotfiles/zsh/.zinitrc
 
+export EDITOR=nvim
+eval "$(direnv hook zsh)"
+
 # Alias
 # if [ $OS "==" 'Mac' ]; then
 # 	alias ls='ls -G'
@@ -95,8 +98,9 @@ alias re='source $HOME/.zshrc'
 alias cl='clear'
 alias tmux='tmux -u'
 alias tkill='tmux kill-session'
+alias txmk='lualatex --synctex=1 -interaction=nonstopmode --output-directory=build'
 
-# Alternative to CLI
+# Alternative CLI
 alias ls='exa --group-directories-first'
 alias la='exa -aalh --git --time-style=iso --group-directories-first'
 alias ll='exa -lh --git --time-style=iso --group-directories-first'
@@ -107,6 +111,20 @@ alias grep='rg'
 export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
+
+# pipx completion
+# eval "$(register-python-argcomplete pipx)"
+export PATH="~/.local/bin:$PATH"
+
+# TKinter setup
+export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
+# export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"
+# export CPPFLAGS="-I/usr/local/opt/tcl-tk/include"
+# export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
+# export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I/usr/local/opt/tcl-tk"
 
 # Sage
 export SAGE_ROOT=/usr/local/SageMath
@@ -116,12 +134,19 @@ export PATH="$SAGE_ROOT:$PATH"
 export PATH="$PATH:$HOME/.cargo/bin"
 
 # Go
-export GOPATH=$HOME/go
+# Default: export GOPATH=$HOME/go
+export GOPATH=$HOME/dev/go
 export PATH=$GOPATH/bin:$PATH
 
 # Node.js > nodebrew
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 export NODE_PATH=`npm root -g`
 
-# texlive
+# tex/latex/texlive
 export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH
+
+# Created by `userpath` on 2020-07-08 09:18:15
+export PATH="$PATH:/Users/usr/.local/bin"
+# export PATH="/usr/local/opt/bzip2/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

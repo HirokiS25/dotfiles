@@ -22,9 +22,9 @@
 # autocmd FileType python setlocal completeopt-=preview
 # '''
 
-[[plugins]]
-repo = "davidhalter/jedi-vim"
-on_ft = ['python', 'py']
+# [[plugins]]
+# repo = "davidhalter/jedi-vim"
+# on_ft = ['python', 'py']
 
 [[plugins]]
 repo = 'raimon49/requirements.txt.vim'
@@ -36,9 +36,11 @@ on_ft = ['python', 'py']
 
 [[plugins]]
 repo = 'tell-k/vim-autopep8'
+on_ft = ['python', 'py']
 
 [[plugins]]
 repo = 'mindriot101/vim-yapf'
+on_ft = ['python', 'py']
 
 # [[plugins]]
 # repo = "PieterjanMontens/vim-pipenv"
@@ -161,6 +163,11 @@ hook_add = '''
 '''
 
 
+# ------------------------------------
+# ELM
+# ------------------------------------
+[[plugins]]
+repo = 'andys8/vim-elm-syntax'
 
 # ------------------------------------
 # EXTRA
@@ -264,4 +271,11 @@ on_path = '.*'
 hook_add = '''
 let g:cheatsheet#cheat_file = '~/.config/nvim/cheatsheet/cheat.md'
 nnoremap <Leader>help :Cheat<CR>
+'''
+
+
+[[plugins]]
+repo = 'mattn/vim-sonictemplate'
+hook_add = '''
+let g:sonictemplate_vim_template_dir = expand('~/dotfiles/neovim/sonictemplate')
 '''

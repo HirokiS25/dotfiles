@@ -1,0 +1,15 @@
+# [[plugins]]
+# repo = 'neoclide/coc.nvim'
+# rev = 'release'
+# build = 'git checkout release'
+# hook_add = 'source $HOME/dotfiles/vim/rc/coc.vim'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+[[plugins]]
+repo = 'lervag/vimtex'
+on_ft = ['tex']
+
+

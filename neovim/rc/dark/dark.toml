@@ -1,0 +1,79 @@
+# --------------------------
+# DARK POWERED VIM
+# --------------------------
+[[plugins]]
+repo = 'Shougo/dein.vim'
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+hook_add = '''
+source ~/dotfiles/neovim/rc/hooks/denite.vim
+'''
+
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+hook_add = '''
+" 【Ctrl + o】 float windowでターミナルを表示
+nnoremap <silent><C-o> :<C-u>Deol -split=floating<CR>
+" 【ESC】 ターミナルモードから抜ける
+tnoremap <ESC>   <C-\><C-n>
+
+let g:deol#shell_history_path = '~/.zsh_history'
+augroup transparent-windows
+	autocmd!
+	autocmd FileType deol set winblend=30
+augroup END
+
+hi NormalFloat guifg=#2e3440 guibg=#a3be8c
+'''
+
+
+[[plugins]]
+repo = 'kristijanhusak/defx-icons'
+hook_add = '''
+let g:defx_icons_enable_syntax_highlight = 1
+let g:defx_icons_column_length = 2
+
+let g:defx_icons_directory_icon = ''
+let g:defx_icons_mark_icon = '*'
+let g:defx_icons_copy_icon = ''
+let g:defx_icons_move_icon = ''
+let g:defx_icons_parent_icon = ''
+let g:defx_icons_default_icon = ''
+let g:defx_icons_directory_symlink_icon = ''
+" Options below are applicable only when using "tree" feature
+let g:defx_icons_root_opened_tree_icon = ''
+let g:defx_icons_nested_opened_tree_icon = ''
+let g:defx_icons_nested_closed_tree_icon = ''
+'''
+
+
+[[plugins]]
+repo ='kristijanhusak/defx-git'
+
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
+let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+" after a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+	call webdevicons#refresh()
+endif
+
+" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" if exists('g:loaded_webdevicons')
+" call webdevicons#refresh()
+" endif
+'''
+
+
+[[plugins]]
+repo     = 'Shougo/defx.nvim'
+depends  = ['defx-icons', 'defx-git']
+on_cmd = 'Defx'
+hook_add = '''
+source ~/dotfiles/neovim/rc/hooks/defx.vim
+" au runDefx VimEnter * nested source ~/dotfiles/neovim/rc/hooks/defx.vim
+'''

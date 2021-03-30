@@ -1,0 +1,69 @@
+[[plugins]]
+repo = 'tpope/vim-commentary'
+on_path = '.*'
+# Ctrl + /
+hook_add = '''
+	noremap <C-,> gcc
+	vmap <C-a> gcc<ESC>
+'''
+
+[[plugins]]
+repo = 'ulwlu/elly.vim'
+hook_add = 'colorscheme elly'
+
+[[plugins]]
+repo = 'voldikss/vim-floaterm'
+
+# [[plugins]]
+# repo = 'nvim-lua/popup.nvim'
+
+# # hoge
+# [[plugins]]
+# repo = 'nvim-lua/plenary.nvim'
+
+# [[plugins]]
+# repo = 'nvim-telescope/telescope.nvim'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+merged = 0
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+hook_add = '''
+  fun! FzfOmniFiles()
+    let is_git = system('git status')
+    if v:shell_error
+      :Files
+    else
+      :GitFiles
+    endif
+  endfun
+
+  nnoremap <C-b> :Buffers<CR>
+  nnoremap <C-g> :Rg<Space>
+  nnoremap <leader><leader> :Commands<CR>
+  nnoremap <C-p> :call FzfOmniFiles()<CR>
+'''
+
+# [[plugins]]
+# repo = 'yuki-yano/fzf-preview.vim'
+# rev = 'release/rpc'
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+# branch = 'release'
+merged = 0
+rev = 'release'
+
+[[plugins]]
+repo = 'junegunn/rainbow_parentheses.vim'
+hook_add = '''
+  let g:rainbow#max_level = 16
+  let g:rainbow#pairs = [['(', ')'], ['[', ']']]
+
+  " List of colors that you do not want. ANSI code or #RRGGBB
+  let g:rainbow#blacklist = [233, 234]
+'''

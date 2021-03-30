@@ -1,0 +1,3 @@
+{'repo': v:val.repo, 'rev': get(v:val, 'rev', '')}
+0
+[{'rev': '', 'repo': '/Users/usr/dotfiles/vim/repos/github.com/Shougo/dein.vim'}, {'rev': '', 'repo': 'cespare/vim-toml'}, {'rev': '', 'repo': 'junegunn/fzf.vim'}, {'rev': '', 'repo': 'junegunn/rainbow_parentheses.vim'}, {'rev': '', 'repo': 'lervag/vimtex'}, {'rev': '', 'repo': 'tpope/vim-commentary'}, {'rev': '', 'repo': 'ulwlu/elly.vim'}, {'rev': '', 'repo': 'voldikss/vim-floaterm'}, {'rev': 'release', 'repo': 'neoclide/coc.nvim'}]

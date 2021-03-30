@@ -1,4 +1,3 @@
-
 # --------------------------------
 # LSP (Language Server Protocol)
 # --------------------------------
@@ -8,7 +7,7 @@ rev = 'release'
 on_i = 1
 merged = '0'
 hook_add = '''
-source ~/dotfiles/neovim/rc/lazy_hook/coc.vim
+source ~/dotfiles/neovim/rc/hooks/coc.vim
 '''
 
 # --------------------------------
@@ -17,208 +16,12 @@ source ~/dotfiles/neovim/rc/lazy_hook/coc.vim
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 hook_add = '''
-source ~/dotfiles/neovim/rc/lazy_hook/quickrun.vim
+source ~/dotfiles/neovim/rc/hooks/quickrun.vim
 '''
 
 
-# --------------------------
-# DARK POWERED VIM
-# --------------------------
-
 [[plugins]]
-repo = 'Shougo/dein.vim'
-
-# [[plugins]]
-# repo = 'Shougo/vimproc.vim'
-# build = 'make'
-
-# [[plugins]]
-# repo = 'Shougo/unite.vim'
-# hook_add = '''
-# 	nnoremap <silent> ,uu :<C-u>Unite file_mru<CR>
-# 	nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file <CR>
-# '''
-
-[[plugins]]
-repo = 'Shougo/denite.nvim'
-hook_add = '''
-source ~/dotfiles/neovim/rc/lazy_hook/denite.vim
-'''
-
-[[plugins]]
-repo = 'Shougo/deol.nvim'
-hook_add = '''
-" 【Ctrl + o】 float windowでターミナルを表示
-nnoremap <silent><C-o> :<C-u>Deol -split=floating<CR>
-" 【ESC】 ターミナルモードから抜ける
-tnoremap <ESC>   <C-\><C-n>
-
-let g:deol#shell_history_path = '~/.zsh_history'
-augroup transparent-windows
-	autocmd!
-	autocmd FileType deol set winblend=30
-augroup END
-
-hi NormalFloat guifg=#2e3440 guibg=#a3be8c
-'''
-
-[[plugins]]
-repo = 'kristijanhusak/defx-icons'
-hook_add = '''
-let g:defx_icons_enable_syntax_highlight = 1
-let g:defx_icons_column_length = 2
-let g:defx_icons_directory_icon = ''
-let g:defx_icons_mark_icon = '*'
-let g:defx_icons_copy_icon = ''
-let g:defx_icons_move_icon = ''
-let g:defx_icons_parent_icon = ''
-let g:defx_icons_default_icon = ''
-let g:defx_icons_directory_symlink_icon = ''
-" Options below are applicable only when using "tree" feature
-let g:defx_icons_root_opened_tree_icon = ''
-let g:defx_icons_nested_opened_tree_icon = ''
-let g:defx_icons_nested_closed_tree_icon = ''
-'''
-
-[[plugins]]
-repo ='kristijanhusak/defx-git'
-hook_add = '''
-call defx#custom#column('git', 'indicators', {
-  \ 'Modified'  : '✔︎',
-  \ 'Staged'    : '✚',
-  \ 'Untracked' : '↶',
-  \ 'Renamed'   : '⚐',
-  \ 'Unmerged'  : '═',
-  \ 'Ignored'   : '☒',
-  \ 'Deleted'   : '✗',
-  \ 'Unknown'   : '?'
-  \ })
-'''
-
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
-hook_add = '''
-let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
-let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
-" after a re-source, fix syntax matching issues (concealing brackets):
-if exists('g:loaded_webdevicons')
-	call webdevicons#refresh()
-endif
-
-" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-" if exists('g:loaded_webdevicons')
-" call webdevicons#refresh()
-" endif
-'''
-
-[[plugins]]
-repo     = 'Shougo/defx.nvim'
-# depends  = ['defx-icons', 'defx-git']
-hook_add = '''
-" source /home/usr/dotfiles/neovim/rc/lazy_hook/defx.nvim
-
-call defx#custom#column('icon', {
-      \ 'directory_icon': '▸',
-      \ 'opened_icon': '▾',
-      \ 'root_icon': ' ',
-      \ })
-
-call defx#custom#column('filename', {
-      \ 'min_width': 40,
-      \ 'max_width': 40,
-      \ })
-
-call defx#custom#column('mark', {
-      \ 'readonly_icon': '✗',
-      \ 'selected_icon': '✓',
-      \ })
-
-call defx#custom#option('_', {
-      \ 'columns': 'indent:git:icons:filename',
-      \ 'show_ignored_files': 1,
-      \ })
-
-" 【Ctrl + f】 defx.nvimを起動
-nnoremap <silent><C-f> :<C-u>Defx<CR>
-nnoremap <silent><buffer><expr> > defx#do_action('resize',
-	\ defx#get_context().winwidth + 10)
-nnoremap <silent><buffer><expr> < defx#do_action('resize',
-	\ defx#get_context().winwidth - 10)
-
-""call defx#custom#option('_', {
-""   \ 'columns': 'indent:git:icons:filename:type',
-""   \ 'show_ignored_files': 1,
-""   \ })
-
-autocmd FileType defx call s:defx_my_settings()
-    function! s:defx_my_settings() abort
-      nnoremap <silent><buffer><expr> <CR>
-     \ defx#do_action('open')
-      " 【o】 ファイルを開く
-      nnoremap <silent><buffer><expr> o
-      \ defx#do_action('open')
-      " 【s】 ウィンドウを水平分割してファイルを開く
-      nnoremap <silent><buffer><expr> s
-      \ defx#do_action('open', 'split')
-      " 【v】 ウィンドウを垂直分割してファイルを開く
-      nnoremap <silent><buffer><expr> v
-      \ defx#do_action('open', 'vsplit')
-      " 【c】 ファイルをコピーする
-      nnoremap <silent><buffer><expr> c
-      \ defx#do_action('copy')
-      " 【m】 ファイルを移動する
-      nnoremap <silent><buffer><expr> m
-      \ defx#do_action('move')
-      " 【p】 ファイルを貼り付ける
-      nnoremap <silent><buffer><expr> p
-      \ defx#do_action('paste')
-      " 【n】 新しいファイルを作成する
-      nnoremap <silent><buffer><expr> n
-      \ defx#do_action('new_file')
-      " 【N】 新しいディレクトリを作成する
-      nnoremap <silent><buffer><expr> N
-      \ defx#do_action('new_directory')
-      " 【d】 ファイルを削除する
-      nnoremap <silent><buffer><expr> d
-      \ defx#do_action('remove')
-      " 【r】 ファイル名を変更する
-      nnoremap <silent><buffer><expr> r
-      \ defx#do_action('rename')
-      " 【t】 ツリーを表示/非表示する
-      nnoremap <silent><buffer><expr> t
-      \ defx#do_action('open_or_close_tree')
-      " 【x】 ファイルを実行する
-      nnoremap <silent><buffer><expr> x
-      \ defx#do_action('execute_system')
-      " 【yy】 ファイル/ディレクトリのパスをコピーする
-      nnoremap <silent><buffer><expr> yy
-      \ defx#do_action('yank_path')
-      nnoremap <silent><buffer><expr> .
-      " 【.】 隠しファイルを表示/非表示する
-      \ defx#do_action('toggle_ignored_files')
-      nnoremap <silent><buffer><expr> ..
-      " 【..】 親ディレクトリに移動する
-      \ defx#do_action('cd', ['..'])
-      nnoremap <silent><buffer><expr> ~
-      " 【~】 ホームディレクトリに移動する
-      \ defx#do_action('cd')
-      " 【ESC】 / 【q】 defx.nvimを終了する
-      nnoremap <silent><buffer><expr> <Esc> 
-      \ defx#do_action('quit')
-      nnoremap <silent><buffer><expr> q
-      \ defx#do_action('quit')
-      " 【j】 カーソルを下に移動する
-      nnoremap <silent><buffer><expr> j
-      \ line('.') == line('$') ? 'gg' : 'j'
-      " 【k】 カーソルを上に移動する
-      nnoremap <silent><buffer><expr> k
-      \ line('.') == 1 ? 'G' : 'k'
-      " 【cd】 Neovim上のカレントディレクトリを変更する
-      nnoremap <silent><buffer><expr> cd
-      \ defx#do_action('change_vim_cwd')
-endfunction
-'''
-
+repo = 'Shougo/defx.nvim'
 
 
 # -------------------------
@@ -231,10 +34,10 @@ repo = 'tpope/vim-fugitive'
 repo = "airblade/vim-gitgutter"
 hook_add = '''
 " GitGutter styling to use · instead of +/-
-let g:gitgutter_sign_added = '▌'
-let g:gitgutter_sign_modified = '▌'
-let g:gitgutter_sign_removed = '▌'
-let g:gitgutter_sign_modified_removed = '∙'
+let g:gitgutter_sign_added = '＋ '
+let g:gitgutter_sign_modified = '» '
+let g:gitgutter_sign_removed = '－ '
+let g:gitgutter_sign_modified_removed = '« '
 nmap ]g :GitGutterNextHunk<CR>
 nmap [g :GitGutterPrevHunk<CR>
 augroup VimDiff
@@ -242,10 +45,6 @@ augroup VimDiff
   autocmd VimEnter,FilterWritePre * if &diff | GitGutterDisable | endif
 augroup END
 '''
-
-
-
-
 
 
 [[plugins]]

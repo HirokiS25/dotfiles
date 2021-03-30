@@ -1,0 +1,7 @@
+db.open\.\(".*"\)\.\(".*"\)$
+    db, err := sql.Open({{$1}}, {{$2}})
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer db.Close()
+    {{_cursor_}}
